@@ -4,9 +4,12 @@ let nextId = 1;
 const shoppingListItemReducer = (state = [], action) =>{
     switch (action.type) {
         case ADD_ITEM:
+            
             const newItem = {
                 itemId: nextId++,
-                name: action.item,
+                name: action.item.name,
+                date: action.item.date,
+                unit: action.item.unit,
                 refill: true
             }
             return [...state, newItem];

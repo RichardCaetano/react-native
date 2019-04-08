@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
 import Input from './Input';
 import { addItem, setEditingItem, updateItem, deteleItem} from '../actions';
+import DatePicker from 'react-native-datepicker'
 
 var radio_props = [
     {label: 'Kg', value: 0 },
@@ -15,8 +16,17 @@ var radio_props = [
 
 class ShoppingListForm extends Component {
     
-    onChangeText(name){
-        this.props.setEditingItem({name:name,parc:1});
+    constructor(props){
+        super(props)
+        this.state = new Date()
+    }
+
+    onChangeText(field,value){
+        this.props.setEditingItem({[field] : value,parc:field});
+    }
+
+    onChangeHandler(field, value){
+        this.setState({[field] : value});
     }
 
     onPress(name){  
@@ -24,7 +34,7 @@ class ShoppingListForm extends Component {
     }
 
     cadItem(item){
-        item.itemId ? this.props.updateItem(item) : this.props.addItem(item.name);
+        item.itemId ? this.props.updateItem(item) : this.props.addItem(item);
         this.props.onNav();
     }
 
@@ -41,7 +51,9 @@ class ShoppingListForm extends Component {
 
     render(){
         const {item} = this.props;
+        console.log('meu item2', item);
         const name = item.name;
+        const date = item.date;
 
         return (
             <View style={ [styles.containerListagem, {flex:1}]}>
@@ -50,7 +62,7 @@ class ShoppingListForm extends Component {
                     <Text style={styles.box}>Nome do item</Text>
                     <Input
                         placeholder='Digite nome do item'
-                        onChangeText={name => this.onChangeText(name)}
+                        onChangeText={name => this.onChangeText('name',name)}
                         value={name}
                     />
                 </View>
@@ -74,9 +86,29 @@ class ShoppingListForm extends Component {
 
                 <View  style={{marginBottom: 10}}>
                     <Text style={styles.box}>Data da Compra</Text>
-                    <Input
-                        placeholder='Digite data da compra'
-                        style={styles.box}/>
+                    
+                    <DatePicker
+                        style={[styles.box, {width: '100%'}]}
+                        date={date}
+                        mode="date"
+                        placeholder="Selecione a data da compra"
+                        format="YYYY-MM-DD"
+                        minDate= '2015-01-01'
+                        maxDate="2030-12-31"
+                        confirmBtnText="Confirm"
+                        cancelBtnText="Cancel"
+                        showIcon={false}
+                        customStyles={{                            
+                            dateInput: {
+                              color:'red',
+                              alignItems:'flex-start',
+                              paddingLeft: 10,
+                              borderColor:'#cde8fd'
+                            }
+                            // ... You can check the source to find the other keys.
+                          }}
+                        onDateChange={date => this.onChangeText('date',date)}
+                    />
                 </View>
 
                 <View style={styles.botoes}>

@@ -6,7 +6,7 @@ import EditingItemScreen from './screens/EditingItemScreen';
  
 const AppNavigator = createStackNavigator({
     'Login':{
-        screen: LoginScreen,
+        screen: EditingItemScreen,
         navigationOptions:{
             title: 'Login',
         }
