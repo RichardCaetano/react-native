@@ -1,4 +1,4 @@
-import { ADD_ITEM, TOOGLE_REFILL_ITEM, UPDATE_ITEM, DELETE_ITEM} from "../actions";
+import { ADD_ITEM, TOOGLE_REFILL_ITEM, UPDATE_ITEM, DELETE_ITEM, saveItem} from "../actions";
 
 let nextId = 1;
 const shoppingListItemReducer = (state = [], action) =>{
@@ -12,6 +12,7 @@ const shoppingListItemReducer = (state = [], action) =>{
                 unit: action.item.unit,
                 refill: true
             }
+            //saveItem(newItem);
             return [...state, newItem];
         
         case UPDATE_ITEM:

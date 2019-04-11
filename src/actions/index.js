@@ -56,16 +56,35 @@ export const tryLogin = ({ email, password }) => dispatch => {
 }
 
 
+const config = {
+    apiKey: "AIzaSyBOIGIJyxPRbAl8mzQAcBGYBfzDfZALRoE",
+    authDomain: "shoppinglist-e4e59.firebaseapp.com",
+    databaseURL: "https://shoppinglist-e4e59.firebaseio.com",
+    projectId: "shoppinglist-e4e59",
+    storageBucket: "shoppinglist-e4e59.appspot.com",
+    messagingSenderId: "842373526324"
+  };
 
-/*
+  if(!firebase.apps.length)
+    firebase.initializeApp(config);
+
 export const saveItem = item =>{
     const {currentUser} = firebase.auth();
+    alert(`/users/${currentUser.uid}`);
+    const x = {
+        nome: 'aaa',
+        age: '2019-06-19'
+    }
+    console.log(item);
     const db = firebase
         .database()
         .ref(`/users/${currentUser.uid}`)
         .push(item)
         .then(()=>{
-
+            alert('ok')
         })
-}*/
+        .catch(()=>{
+            alert('erro')
+        })
+}
 

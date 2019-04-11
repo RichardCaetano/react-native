@@ -33,7 +33,9 @@ class LoginScreen extends Component{
             storageBucket: "shoppinglist-e4e59.appspot.com",
             messagingSenderId: "842373526324"
           };
-          firebase.initializeApp(config);
+
+          if(!firebase.apps.length)
+            firebase.initializeApp(config);
 
     }
 
@@ -126,7 +128,8 @@ const styles = StyleSheet.create({
         color: 'green',
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        margin: 10,
     }
 });
 
