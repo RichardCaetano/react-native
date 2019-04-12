@@ -23,11 +23,12 @@ const shoppingListItemReducer = (state = [], action) =>{
             });
 
         case DELETE_ITEM:
-            console.log(state,action);
-            return state.map((item,index) => {
+            const newItem2 = [];            
+            state.map((item,index) => {
                 if (item.itemId != action.itemId)                
-                    return item;
+                    newItem2.push(item);
             });
+            return newItem2;
             
         case TOOGLE_REFILL_ITEM:            
             return state.map(item =>{

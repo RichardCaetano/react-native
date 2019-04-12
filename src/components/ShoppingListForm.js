@@ -6,7 +6,7 @@ import Input from './Input';
 import { addItem, setEditingItem, updateItem, deteleItem} from '../actions';
 import DatePicker from 'react-native-datepicker'
 
-var radio_props = [
+const radio_props = [
     {label: 'Kg', value: 0 },
     {label: 'Lt', value: 1 },
     {label: 'Und', value: 2 },
@@ -21,16 +21,8 @@ class ShoppingListForm extends Component {
         this.state = new Date()
     }
 
-    onChangeText(field,value){
-        this.props.setEditingItem({[field] : value,parc:field});
-    }
-
-    onChangeHandler(field, value){
-        this.setState({[field] : value});
-    }
-
-    onPress(name){  
-        this.props.addItem(name);
+    onChangeHandler(field,value){
+        this.props.setEditingItem({field,value});
     }
 
     cadItem(item){
@@ -43,7 +35,7 @@ class ShoppingListForm extends Component {
             return (
                 <Button
                     title='REMOVER ITEM'
-                    onPress={() => this.props.deteleItem(item.itemId)}
+                    onPress={() => {this.props.deteleItem(item.itemId); this.props.onNav();}}
                 />
             )
     }
@@ -54,6 +46,7 @@ class ShoppingListForm extends Component {
         console.log('meu item2', item);
         const name = item.name;
         const date = item.date;
+        const unit = item.unit;
 
         return (
             <View style={ [styles.containerListagem, {flex:1}]}>
@@ -62,7 +55,7 @@ class ShoppingListForm extends Component {
                     <Text style={styles.box}>Nome do item</Text>
                     <Input
                         placeholder='Digite nome do item'
-                        onChangeText={name => this.onChangeText('name',name)}
+                        onChangeText={name => this.onChangeHandler('name',name)}
                         value={name}
                     />
                 </View>
@@ -71,9 +64,9 @@ class ShoppingListForm extends Component {
                     <Text style={[styles.box,{marginBottom: 10}]}>Unidade de medida</Text>
                     <RadioForm
                         radio_props={radio_props}
-                        initial={0}
+                        initial={unit}
                         formHorizontal={true}
-                        onPress={(value) => {this.setState({value:value})}}
+                        onPress={unit => this.onChangeHandler('unit',unit)}
                         buttonColor={'#cde8fd'}
                         buttonInnerColor={'#cde8fd'}
                         selectedButtonColor={'#6ba086'}
@@ -88,7 +81,7 @@ class ShoppingListForm extends Component {
                     <Text style={styles.box}>Data da Compra</Text>
                     
                     <DatePicker
-                        style={[styles.box, {width: '100%'}]}
+                        style={{width: '100%'}}
                         date={date}
                         mode="date"
                         placeholder="Selecione a data da compra"
@@ -107,7 +100,7 @@ class ShoppingListForm extends Component {
                             }
                             // ... You can check the source to find the other keys.
                           }}
-                        onDateChange={date => this.onChangeText('date',date)}
+                        onDateChange={date => this.onChangeHandler('date',date)}
                     />
                 </View>
 

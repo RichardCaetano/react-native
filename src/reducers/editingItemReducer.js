@@ -11,17 +11,13 @@ const INITIAL_STATE = {
 const editingItemReducer = (state = INITIAL_STATE, action) =>{
     switch(action.type){
         case SET_EDITING_ITEM:
-            if(action.item.parc == 'name')
+        
+            if(action.item.field){
                 return{
                     ...state,
-                    name: action.item.name,
+                    [action.item.field] : action.item.value,
                 }
-            if(action.item.parc == 'date')
-            return{
-                ...state,
-                date: action.item.date,
             }
-
             return action.item;
         case ADD_ITEM:
         case UPDATE_ITEM:

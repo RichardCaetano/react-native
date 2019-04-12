@@ -14,10 +14,12 @@ export const toogleRefillItem = itemId =>({
 });
 
 export const SET_EDITING_ITEM = 'SET_EDITING_ITEM';
-export const setEditingItem = item =>({
+export const setEditingItem = item =>{
+    return{
     type: SET_EDITING_ITEM,
     item
-});
+    }
+};
 
 export const UPDATE_ITEM = 'UPDATE_ITEM';
 export const updateItem = item =>({
